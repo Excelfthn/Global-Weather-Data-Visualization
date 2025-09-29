@@ -1,4 +1,3 @@
-# app.py — One-Page Global Weather (sidebar: Country filter + Visualization toggles)
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -8,7 +7,7 @@ import plotly.graph_objects as go
 st.set_page_config(page_title="Global Weather — One Page", page_icon="🌍", layout="wide")
 PRIMARY = "#444a96"
 
-# ---------- Load ----------
+# Load 
 @st.cache_data
 def load_data(src):
     df = pd.read_csv(src)
@@ -23,7 +22,7 @@ def load_data(src):
 DATA_PATH = "Global_Weather.csv"
 df = load_data(DATA_PATH)
 
-# ---------- Sidebar ----------
+# Sidebar 
 st.sidebar.header("Country Filter")
 if "country" in df.columns:
     all_countries = sorted(df["country"].dropna().unique().tolist())
@@ -51,15 +50,15 @@ show_box_daynight     = st.sidebar.checkbox("Temperature by Day vs Night (Boxplo
 show_pie_daynight     = st.sidebar.checkbox("Share of Observations: Day vs Night (Pie)", True)
 show_wind_rose        = st.sidebar.checkbox("Wind Rose (avg wind_kph by direction sector)", True)
 
-# ---------- Apply country filter ----------
+# Apply country filter 
 d = df.copy()
 if sel_countries:
     d = d[d["country"].isin(sel_countries)]
 
-# ---------- Page ----------
+# Page
 st.title("🌍 Global Weather — One Page EDA & Visualizations")
 
-# --- 1) Raw Data Preview ---
+# Raw Data Preview 
 if show_raw:
     st.subheader("Raw Data Preview")
     c1, c2, c3, c4 = st.columns(4)
@@ -69,7 +68,7 @@ if show_raw:
     with c4: st.metric("Locations", int(d["location_name"].nunique()) if "location_name" in d.columns else 0)
     st.dataframe(d.head(25), use_container_width=True)
 
-# --- 2) Data Types & Missing ---
+# Data Types & Missing 
 if show_dtypes_missing:
     st.subheader("Data Types & Missing Values")
     colA, colB = st.columns(2)
@@ -82,7 +81,7 @@ if show_dtypes_missing:
         mv["missing_%"] = (mv["missing"]/len(d)*100).round(2)
         st.dataframe(mv.sort_values("missing_%", ascending=False))
 
-# --- 3) Numeric Summary ---
+# Numeric Summary 
 if show_numeric_summary:
     st.subheader("Numeric Summary")
     num_cols = d.select_dtypes(include="number").columns.tolist()
@@ -93,7 +92,7 @@ if show_numeric_summary:
 
 st.markdown("---")
 
-# --- 4) Precipitation Histogram (log-Y) ---
+# Precipitation Histogram (log-Y) 
 if show_hist_precip:
     st.subheader("Precipitation (mm) Distribution (Log-scaled Y)")
     if "precip_mm" in d.columns:
@@ -113,7 +112,7 @@ if show_hist_precip:
     else:
         st.info("Column 'precip_mm' is missing.")
 
-# --- 5) Temperature vs Humidity (Hexbin/Density) ---
+# Temperature vs Humidity (Hexbin/Density) 
 if show_hex_temp_hum:
     st.subheader("Temperature vs Humidity (Hexbin Density)")
     need = {"temperature_celsius","humidity"}
@@ -129,7 +128,7 @@ if show_hex_temp_hum:
     else:
         st.info("Need columns: temperature_celsius, humidity.")
 
-# --- 6) Correlation Heatmap ---
+# Correlation Heatmap 
 if show_corr_heatmap:
     st.subheader("Correlation Heatmap — Main Weather Variables")
     cols = [c for c in [
@@ -145,7 +144,7 @@ if show_corr_heatmap:
     else:
         st.info("Not enough numeric columns for correlation.")
 
-# --- 7) Average Temperature by Hour (Mean ± 95% CI) ---
+# Average Temperature by Hour (Mean ± 95% CI) 
 if show_line_hour_ci:
     st.subheader("Average Temperature by Hour (Mean ± 95% CI)")
     need = {"last_updated","temperature_celsius"}
@@ -169,7 +168,7 @@ if show_line_hour_ci:
 
 st.markdown("---")
 
-# --- 8) Top-15 Countries by Median Temperature ---
+# Top-15 Countries by Median Temperature 
 if show_bar_median_temp:
     st.subheader("Top-15 Countries by Median Temperature (°C)")
     need = {"country","temperature_celsius"}
@@ -184,7 +183,7 @@ if show_bar_median_temp:
     else:
         st.info("Need columns: country, temperature_celsius.")
 
-# --- 9) Top-15 Countries by Mean Temperature (tiered colors) ---
+# Top-15 Countries by Mean Temperature (tiered colors) 
 if show_bar_mean_temp:
     st.subheader("Top-15 Countries by Mean Temperature (°C)")
     need = {"country","temperature_celsius"}
@@ -205,7 +204,7 @@ if show_bar_mean_temp:
     else:
         st.info("Need columns: country, temperature_celsius.")
 
-# --- 10) Top-15 Countries by Median Humidity ---
+# Top-15 Countries by Median Humidity 
 if show_bar_median_hum:
     st.subheader("Top-15 Countries by Median Humidity (%)")
     need = {"country","humidity"}
@@ -220,7 +219,7 @@ if show_bar_median_hum:
     else:
         st.info("Need columns: country, humidity.")
 
-# --- 11) Global Temperature Map (Lat–Lon) ---
+# Global Temperature Map (Lat–Lon) 
 if show_scatter_latlon:
     st.subheader("Global Temperature Map (Lat-Lon)")
     need = {"latitude","longitude","temperature_celsius"}
@@ -234,7 +233,7 @@ if show_scatter_latlon:
     else:
         st.info("Need columns: latitude, longitude, temperature_celsius.")
 
-# --- 12) Global Temperature — Scatter Mapbox (Zoom & Pan) ---
+# Global Temperature — Scatter Mapbox (Zoom & Pan) 
 if show_scatter_mapbox:
     st.subheader("Global Temperature – Scatter Map (Zoom & Pan)")
     need = {"latitude","longitude","temperature_celsius"}
@@ -255,7 +254,7 @@ if show_scatter_mapbox:
     else:
         st.info("Need columns: latitude, longitude, temperature_celsius.")
 
-# --- 13) Temperature by Day vs Night (Boxplot) ---
+# Temperature by Day vs Night (Boxplot) 
 if show_box_daynight:
     st.subheader("Temperature by Day vs Night (Boxplot)")
     need = {"last_updated","sunrise","sunset","temperature_celsius"}
@@ -278,7 +277,7 @@ if show_box_daynight:
     else:
         st.info("Need columns: last_updated, sunrise, sunset, temperature_celsius.")
 
-# --- 14) Share of Observations: Day vs Night (Pie) ---
+# Share of Observations: Day vs Night (Pie) 
 if show_pie_daynight:
     st.subheader("Share of Observations: Day vs Night")
     need = {"last_updated","sunrise","sunset"}
@@ -301,7 +300,7 @@ if show_pie_daynight:
     else:
         st.info("Need columns: last_updated, sunrise, sunset.")
 
-# --- 15) Wind Rose (avg wind_kph) ---
+# Wind Rose (avg wind_kph)
 if show_wind_rose:
     st.subheader("Wind Rose (avg wind_kph by direction sector)")
     need = {"wind_degree","wind_kph"}
@@ -325,3 +324,4 @@ if show_wind_rose:
 
 st.markdown("---")
 st.caption("Order: raw → quality → summaries → distributions → relationships → temporal/spatial → categorical → wind.")
+
