@@ -6,7 +6,8 @@ A Streamlit web application for **exploratory data analysis (EDA) and visualizat
 The app allows users to filter countries and toggle visualizations interactively, all in **one page dashboard**.
 
 <img width="1920" height="1128" alt="image" src="https://github.com/user-attachments/assets/41bdf083-e161-4610-b6af-f1d71f6f6dc1" />
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/386410f4-37a9-4ec2-a13e-e64758adf09a" />
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/87207fae-6043-427c-84c8-ec848515831a" />
+
 
 
 ---
