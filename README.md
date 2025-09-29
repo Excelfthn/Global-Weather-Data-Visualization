@@ -5,7 +5,9 @@
 A Streamlit web application for **exploratory data analysis (EDA) and visualization** of global weather data.  
 The app allows users to filter countries and toggle visualizations interactively, all in **one page dashboard**.
 
-![Demo Screenshot](./screenshot.png) <!-- Optional: add screenshot -->
+<img width="1920" height="1128" alt="image" src="https://github.com/user-attachments/assets/41bdf083-e161-4610-b6af-f1d71f6f6dc1" />
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/386410f4-37a9-4ec2-a13e-e64758adf09a" />
+
 
 ---
 
