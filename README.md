@@ -6,7 +6,7 @@ A Streamlit web application for **exploratory data analysis (EDA) and visualizat
 The app allows users to filter countries and toggle visualizations interactively, all in **one page dashboard**.
 
 <img width="1920" height="1128" alt="image" src="https://github.com/user-attachments/assets/41bdf083-e161-4610-b6af-f1d71f6f6dc1" />
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/87207fae-6043-427c-84c8-ec848515831a" />
+<img width="1920" height="1124" alt="Screenshot 2025-09-29 211946" src="https://github.com/user-attachments/assets/b47cfe2f-39c2-49d1-abc3-d4051e7dfc76" />
 
 
 
@@ -60,5 +60,5 @@ The app allows users to filter countries and toggle visualizations interactively
 
 ---
 
-## 📂 Project Structure
-
+## Streamlit
+Link: https://excel-globalweather-finalproject.streamlit.app/
